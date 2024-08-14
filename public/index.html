@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipedrive Integration</title>
+</head>
+<body>
+    <h1>Pipedrive Integration</h1>
+    <form id="deal-form">
+        <input type="text" id="title" placeholder="Deal Title" required>
+        <input type="number" id="value" placeholder="Deal Value" required>
+        <input type="number" id="person_id" placeholder="Person ID" required>
+        <input type="number" id="org_id" placeholder="Organization ID" required>
+        <button type="submit">Create Deal</button>
+    </form>
+
+    <script>
+        document.getElementById('deal-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const value = document.getElementById('value').value;
+            const person_id = document.getElementById('person_id').value;
+            const org_id = document.getElementById('org_id').value;
+
+            const response = await fetch('/create-deal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, value, person_id, org_id }),
+            });
+
+            const data = await response.json();
+            console.log(data);
+        });
+    </script>
+</body>
+</html>
